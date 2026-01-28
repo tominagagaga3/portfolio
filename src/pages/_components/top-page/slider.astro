@@ -1,0 +1,249 @@
+---
+import { baseStyles } from "../../../styles/styles";
+import { Image, getImage } from "astro:assets";
+import banner1Img from "../../../assets/banners/banner1.png";
+import banner2Img from "../../../assets/banners/banner2.png";
+import banner3Img from "../../../assets/banners/banner3.png";
+import prevDecorationImg from "../../../assets/key-images/prev-decoration.png";
+const prevDecorationImgSrc = await getImage({ src: prevDecorationImg });
+---
+
+<div class="slide-wrapper">
+  <div id="slide" class="slide">
+    <!-- 末尾ダミー -->
+    <div class="demo-img-wrapper">
+      <Image src={banner3Img} alt="イベントバナー" />
+    </div>
+
+    <!-- 本物 -->
+    <div class="demo-img-wrapper">
+      <Image src={banner1Img} alt="イベントバナー" />
+    </div>
+    <div class="demo-img-wrapper">
+      <Image src={banner2Img} alt="イベントバナー" />
+    </div>
+    <div class="demo-img-wrapper">
+      <Image src={banner3Img} alt="イベントバナー" />
+    </div>
+    <!-- 先頭ダミー -->
+    <div class="demo-img-wrapper">
+      <Image src={banner1Img} alt="イベントバナー" />
+    </div>
+  </div>
+
+  <span id="prev" class="prev"></span>
+  <span id="next" class="next"></span>
+</div>
+
+
+
+
+<style
+  define:vars={{
+    primary: baseStyles.colors.primary,
+    accent: baseStyles.colors.accent,
+    accentLine: baseStyles.colors.accentLine,
+    base: baseStyles.colors.base,
+    white: baseStyles.colors.white,
+    xxLarge: baseStyles.fontSize.xxLarge,
+    large: baseStyles.fontSize.large,
+    small: baseStyles.fontSize.small,
+    prevDecoration: `url(${prevDecorationImgSrc.src})`,
+  }}
+>
+  ul {
+    padding: 0;
+    margin: 0;
+  }
+
+  li {
+    list-style: none;
+  }
+
+  .demo-img-wrapper {
+    background-color: var(--white);
+  }
+
+  .demo-img-wrapper img {
+    width: 95%;
+    height: auto;
+  }
+
+  .slide-wrapper {
+    position: relative;
+    max-width: 900px;
+    height: auto;
+    max-lines: 500px;
+    margin: 0 auto 40px;
+    overflow: hidden;
+    border: 8px solid var(--white);
+    border-radius: 8px;
+    box-shadow: 0 0 8px 0 rgb(202 202 202 / 60%);
+  }
+
+
+  .slide {
+ display: flex;
+  width: 500%;
+  height: 100%;
+  transition: transform 0.4s ease;
+}
+
+.slide div {
+  width: 20%;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+  .next {
+    position: absolute;
+    right: 0;
+    bottom: 45%;
+    z-index: 5;
+    width: 50px;
+    height: 50px;
+    cursor: pointer;
+    background-image: var(--prevDecoration);
+    background-size: cover;
+    rotate: 180deg;
+  }
+
+  .prev {
+    position: absolute;
+    bottom: 45%;
+    left: 0;
+    z-index: 5;
+    width: 50px;
+    height: 50px;
+    cursor: pointer;
+    background-image: var(--prevDecoration);
+    background-size: cover;
+  }
+
+  .indicator {
+    display: flex;
+    column-gap: 60px;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    margin: 30px auto 20px;
+  }
+
+  .indicator li {
+    display: grid;
+    place-content: center;
+    width: 240px;
+    height: 70px;
+    font-size: var(--small);
+    font-weight: 700;
+    color: var(--primary);
+    list-style: none;
+    cursor: pointer;
+    background-color: #fff;
+    border: 3px solid var(--primary);
+    border-radius: 6px;
+  }
+
+  .indicator li:first-of-type {
+    color: var(--white);
+    background-color: var(--primary);
+  }
+
+  @media screen and (max-width: 1000px) {
+    .indicator {
+      column-gap: 20px;
+    }
+  }
+  @media screen and (max-width: 600px) {
+  .next {
+    width: 30px;
+    height: 30px;
+    bottom: 38%;
+  }
+  .prev{
+    width: 30px;
+    height: 30px;
+    bottom: 38%;
+  }
+  }
+
+</style>
+
+
+<script>
+  const slide = document.getElementById("slide") as HTMLElement;
+const slides = slide.querySelectorAll(".demo-img-wrapper");
+const prev = document.getElementById("prev") as HTMLElement;
+const next = document.getElementById("next") as HTMLElement;
+
+const realSlideCount = slides.length - 2;
+let index = 1;
+let isAnimating = false;
+
+function move() {
+  isAnimating = true;
+  slide.style.transform = `translateX(${-20 * index}%)`;
+}
+
+// 初期位置
+slide.style.transform = "translateX(-20%)";
+
+slide.addEventListener("transitionend", () => {
+  // 端のダミーに来たら瞬間移動で巻き戻す
+  if (index === realSlideCount + 1) {
+    slide.style.transition = "none";
+    index = 1;
+    slide.style.transform = `translateX(${-20 * index}%)`;
+    slide.offsetHeight; // reflow
+    slide.style.transition = "transform 0.4s ease";
+  }
+
+  if (index === 0) {
+    slide.style.transition = "none";
+    index = realSlideCount;
+    slide.style.transform = `translateX(${-20 * index}%)`;
+    slide.offsetHeight; // reflow
+    slide.style.transition = "transform 0.4s ease";
+  }
+
+  // 次の操作を許可
+  isAnimating = false;
+});
+
+let autoSlideTimer: number;
+
+function startAutoSlide() {
+  autoSlideTimer = window.setInterval(() => {
+    if (isAnimating) return;
+    index++;
+    move();
+  }, 3000);
+}
+
+function resetAutoSlide() {
+  clearInterval(autoSlideTimer);
+  startAutoSlide();
+}
+
+function goNext() {
+  if (isAnimating) return; // ★連打対策
+  resetAutoSlide();
+  index++;
+  move();
+}
+
+function goPrev() {
+  if (isAnimating) return; // ★連打対策
+  resetAutoSlide();
+  index--;
+  move();
+}
+
+startAutoSlide();
+next.addEventListener("click", goNext);
+prev.addEventListener("click", goPrev);
+
+
+</script>

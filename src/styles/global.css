@@ -1,0 +1,37 @@
+html {
+  font-family: "Noto Sans JP", sans-serif;
+  font-size: 62.5%;
+  background-color: #fff;
+  scroll-behavior: smooth;
+}
+
+body {
+  /* stylelint-disable */
+  -webkit-text-size-adjust: 100%;
+  /* stylelint-enable */
+  width: 100%;
+  margin: 0;
+  margin-top: 0;
+  line-height: 1.5;
+}
+
+h1 {
+  margin: 0;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+p {
+  margin: 0;
+}
+
+a {
+  color: #086FC7;
+  cursor: pointer;
+}
+
+a:hover {
+  color: #e7dddbff;
+}

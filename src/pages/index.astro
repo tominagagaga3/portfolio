@@ -1,0 +1,36 @@
+---
+import BaseLayout from "../layouts/base-layout.astro";
+import KeyVisual from "./_components/top-page/key-visual.astro";
+import UseCasesblock from "./_components/top-page/use-case-block.astro";
+import Featureblock from "./_components/top-page/feature-block.astro";
+import Faqblock from "./_components/top-page/faq-block.astro";
+
+
+const pageTitle = "トップページ";
+const description = "トップページ";
+---
+
+<BaseLayout pageTitle={pageTitle} description={description} isIndexTarget={true}>
+  <KeyVisual />
+   <UseCasesblock />
+   <Featureblock />
+   <Faqblock />
+</BaseLayout>
+
+
+ <style>
+    h1 {
+      margin: 0;
+    }
+
+    .cloredGrid {
+      width: 100%;
+      height: 300px;
+      background-color: #cce7e7;
+    }
+
+    .noColorGrid {
+      width: 100%;
+      height: 300px;
+    }
+  </style>
