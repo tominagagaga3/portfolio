@@ -1,43 +1,64 @@
-# Astro Starter Kit: Minimal
+# WorkLounge（架空のシェアラウンジサイト）
 
-```sh
-npm create astro@latest -- --template minimal
-```
+Astroを使用して制作した、架空の「イベントスペース兼シェアラウンジ」のサービスサイトです。  
+デザインの再現性を担保しつつ、UIの保守性・更新性を意識したフロントエンド実装に取り組みました。
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+---
 
-## 🚀 Project Structure
+## 🔗 公開URL
 
-Inside of your Astro project, you'll see the following folders and files:
+https://portfolio-beta-neon-68.vercel.app/
 
-```text
-/
-├── public/
-├── src/
-│   └── pages/
-│       └── index.astro
-└── package.json
-```
+---
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+## 🎯 制作目的
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
+- フロントエンドの静的実装力を高めるため  
+- デザインを正確に再現しながら、運用・更新しやすい構成で制作する練習  
+- Astroを用いたコンポーネント設計とレスポンシブ対応の強化  
 
-Any static assets, like images, can be placed in the `public/` directory.
+---
 
-## 🧞 Commands
+## ✨ 工夫したポイント
 
-All commands are run from the root of the project, from a terminal:
+### 1. Astroを活かした構成管理・コンポーネント設計
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
+運用や修正がしやすいよう、Astroのコンポーネント分割を意識して実装しました。
 
-## 👀 Want to learn more?
+- 共通パーツ（Header / Footer）をコンポーネント化し再利用性を向上  
+- ページ単位で責務を分離し、保守性の高い構成を意識  
+- CSS設計も整理し、更新時に影響範囲が広がらないよう配慮  
 
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+制作体制の標準化を意識した構造になっています。
+
+---
+
+### 2. レスポンシブ料金表のUI改善
+
+料金プランは、閲覧デバイスによって情報の見え方が最適になるよう設計しました。
+
+- **PC表示：** プランごとに縦並びで、利用可能項目を視覚的に整理  
+- **スマホ表示：** 3プランをまとめた比較表形式に変更し、違いが一目で分かる構成に調整  
+
+デバイスごとの閲覧体験を意識し、情報設計を工夫しています。
+
+---
+
+## 🛠 使用技術
+
+- Astro  
+- HTML / CSS  
+- JavaScript  
+- Vercel（デプロイ）
+
+---
+
+## 📂 ディレクトリ構成
+
+```bash
+src/
+ ┣ assets/       # 画像・バナー素材
+ ┣ components/   # UIコンポーネント（Headerなど）
+ ┣ layouts/      # 共通レイアウト管理
+ ┣ pages/        # 各ページ（ルーティング）
+ ┗ styles/       # CSS・全体スタイル
