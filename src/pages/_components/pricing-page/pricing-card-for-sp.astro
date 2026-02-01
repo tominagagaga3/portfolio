@@ -11,11 +11,11 @@ import {
 
 const getClassName = (label: string) => {
   if (label === "Premium") {
-    return "pricing-card enterprise";
+    return "pricing-card premium";
   }
 
   if (label === "Executive") {
-    return "pricing-card premium";
+    return "pricing-card excutive";
   }
 
   return "pricing-card";
@@ -236,22 +236,11 @@ const getClassName = (label: string) => {
     }
 
     .premium .mark.annotation::before,
-    .enterprise .mark.annotation::before {
+    .premium .mark.annotation::before {
       position: absolute;
       font-size: var(--large);
       content: "〇";
       background-position: top center;
-    }
-
-    .premium .mark.annotation::after,
-    .enterprise .mark.annotation::after {
-      position: absolute;
-      bottom: -20px;
-      left: 30%;
-      width: 60px;
-      font-size: 1.2rem;
-      content: "（すべて）";
-      background-position: center;
     }
 
     .pricing-card {

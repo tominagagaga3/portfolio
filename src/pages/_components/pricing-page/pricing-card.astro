@@ -16,11 +16,11 @@ export interface Props {
 
 const getClassName = (label: string) => {
   if (label === "Premium") {
-    return "pricing-card enterprise";
+    return "pricing-card premium";
   }
 
   if (label === "Executive") {
-    return "pricing-card premium";
+    return "pricing-card excutive";
   }
 
   return "pricing-card";
@@ -132,16 +132,16 @@ const getClassName = (label: string) => {
     padding: 20px 0;
     color: var(--white);
     text-align: center;
-    background: var(--primary);
+    background: #72b2e9;
     border: 10px solid var(--base);
     border-radius: 15px 15px 0 0;
   }
 
-  .enterprise .card-header {
-    background-color: var(--primary);
+  .premium .card-header {
+    background-color: #3C8DD3;
   }
 
-  .premium .card-header {
+  .excutive .card-header {
     color: var(--white);
     background-color: var(--primary);
   }
@@ -232,7 +232,7 @@ const getClassName = (label: string) => {
   }
 
   .premium .mark.annotation::before,
-  .enterprise .mark.annotation::before {
+  .excutive .mark.annotation::before {
     position: absolute;
     top: -4px;
     left: -16px;
@@ -277,22 +277,6 @@ const getClassName = (label: string) => {
     }
     .card-header .plan-name {
       font-size: var(--large);
-    }
-
-    .premium .card-header {
-      padding-top: 40px;
-    }
-    .premium .card-header::after {
-      position: absolute;
-      top: -16px;
-      right: 24%;
-      display: inline-block;
-      width: 53%;
-      height: 52px;
-      content: "";
-      background-repeat: no-repeat;
-      background-size: contain;
-      transform: rotate(0deg);
     }
   }
 </style>

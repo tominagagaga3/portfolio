@@ -4,9 +4,8 @@ import SectionTitle from "../../../components/section-title.astro";
 import SectionBlock from "../top-page/section-block.astro";
 import Slider from "./slider.astro";
 import { Image } from "astro:assets";
-import banner4Img from "../../../assets/banners/banner4.png";
-import banner5Img from "../../../assets/banners/banner5.png";
-import banner6Img from "../../../assets/banners/banner6.png";
+import { articles } from "../report-data/articles.ts"; 
+const latestArticles = articles.slice(0, 3);
 ---
 
 <SectionBlock bg={baseStyles.colors.base}>
@@ -18,47 +17,19 @@ import banner6Img from "../../../assets/banners/banner6.png";
       <Slider />
     </div>
     <SectionTitle title="イベントレポート"></SectionTitle>
-<div class="card-group">
-  <a href="#">
-  <div class="card-content">
-    <Image src={banner4Img} alt="イベントバナー" />
-    <div class="text-area">
-        <div class="date">
-          2026.12.6
-        </div>
-      <div class="article-title">
-        交流が深まった異業種交流会の様子をお届けします！
-      </div>
-    </div>
+  <div class="card-group">
+     {latestArticles.map((article) => (
+        <a href={`/articles/${article.slug}`} class="card-link">
+          <div class="card-content">
+            <Image src={article.banner} alt="イベントバナー" />
+            <div class="text-area">
+              <div class="date">{article.date}</div>
+              <div class="article-title">{article.title}</div>
+            </div>
+          </div>
+        </a>
+      ))}
   </div>
-  </a>
-  <a href="#">
-  <div class="card-content">
-    <Image src={banner5Img} alt="イベントバナー" />
-    <div class="text-area">
-        <div class="date">
-          2026.12.13
-        </div>
-      <div class="article-title">
-        現役ECオーナー直伝｜マルチタスク管理術セミナーレポート
-      </div>
-    </div>
-  </div>
-  </a>
-  <a href="#">
-  <div class="card-content">
-    <Image src={banner6Img} alt="イベントバナー" />
-    <div class="text-area">
-        <div class="date">
-          2026.12.23
-        </div>
-      <div class="article-title">
-        今日から使える！Trello活用セミナーの内容をレポート
-      </div>
-    </div>
-  </div>
-  </a>
-</div>
 </div>
 
 </SectionBlock>
